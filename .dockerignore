@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/coverage/
+.git/
+.vs/
+.vscode/
+**/.env
+**/.env.*
+**/secrets.json
+**/*.pem
+**/*.pfx
+**/*.key

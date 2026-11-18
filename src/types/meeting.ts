@@ -1,0 +1,91 @@
+export type MeetingCaptureStatus =
+  | 'scheduled'
+  | 'in_progress'
+  | 'completed'
+  | 'transcribing'
+  | 'transcribed'
+  | 'report_generated'
+  | 'archived';
+
+export type UserMeetingRole = 'organizer' | 'coorganizer' | 'attendee' | 'undetermined';
+
+export type TranscriptAccessibilityStatus =
+  | 'accessible'                  // Transcription confirmée et accessible avec les droits du compte connecté
+  | 'content_unavailable'         // Les métadonnées existent, mais le contenu VTT n'est pas exploitable
+  | 'restricted_by_sharing'       // Restreint par les paramètres de partage Teams de l'organisateur (Organizers only)
+  | 'access_refused'              // Microsoft Graph a explicitement refusé l'accès
+  | 'authentication_error'        // Le jeton ou la session ne permet pas l'appel Graph
+  | 'transient_error'             // Erreur Graph temporaire ou limitation de débit
+  | 'verification_required'       // Aucune vérification Graph explicite n'a été effectuée
+  | 'checking'                    // Vérification Graph en cours
+  | 'external_tenant'             // Organisateur issu d'un tenant externe (accès délégué inter-organisations restreint)
+  | 'no_transcript'               // Aucune transcription enregistrée pour cette réunion
+  | 'unresolved'                  // Identifiant onlineMeetingId non résolu
+  | 'permission_missing'          // Permission Graph manquante
+  | 'pending_check';              // En attente d'interrogation Graph
+
+export type MeetingProcessingStatus =
+  | 'idle'                        // Non traité
+  | 'ready_for_processing'        // Transcription récupérée, prêt pour le traitement documentaire
+  | 'processing_pending'          // Traitement documentaire initié
+  | 'processed';                  // Compte rendu généré / archivé
+
+export interface MeetingAttendee {
+  name: string;
+  email: string;
+  type?: 'required' | 'optional' | 'resource' | string;
+  role?: string;
+  department?: string;
+  isExternal?: boolean;
+  responseStatus?: string;
+}
+
+export interface MeetingItem {
+  id: string;
+  graphId?: string;
+  title: string;
+  subject?: string;
+  bodyPreview?: string;
+  organizer: {
+    name: string;
+    email: string;
+    department?: string;
+    isExternal?: boolean;
+  };
+  start: string;
+  end: string;
+  startTimeZone?: string;
+  endTimeZone?: string;
+  location?: string;
+  isOnlineMeeting?: boolean;
+  onlineMeetingProvider?: string;
+  joinWebUrl?: string;
+  webLink?: string;
+  status: MeetingCaptureStatus;
+  captureMethod?: 'teams_native';
+  isDgfMeeting: boolean;
+  departmentCode?: string;
+  attendees: MeetingAttendee[];
+  hasTranscript: boolean;
+  hasOfficialReport: boolean;
+  reportReference?: string;
+  userRole?: UserMeetingRole;
+  isExternalOrganizer?: boolean;
+  organizerTenantId?: string;
+  transcriptAccessibility?: TranscriptAccessibilityStatus;
+  processingStatus?: MeetingProcessingStatus;
+}
+
+export interface OfficialReportItem {
+  id: string;
+  referenceNumber: string;
+  meetingTitle: string;
+  meetingDate: string;
+  departmentCode: string;
+  chairperson: string;
+  rapporteur: string;
+  status: 'draft' | 'under_review' | 'approved' | 'published';
+  sharePointDocxUrl?: string;
+  executiveSummary: string;
+  actionItemsCount: number;
+}

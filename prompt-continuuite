@@ -1,0 +1,19 @@
+La passation est préparée dans docs/continuite/README.md. Les huit documents de passation et l’index sont présents ; leurs liens internes ont été vérifiés. Aucun secret n’a été lu ou recopié.
+
+Fichiers créés :
+
+00_LIRE_EN_PREMIER.md
+01_ETAT_TECHNIQUE_DU_DEPOT.md
+02_HISTORIQUE_DES_DECISIONS.md
+03_ETAT_DES_LOTS.md
+04_ENVIRONNEMENT_ET_DEPENDANCES.md
+05_MICROSOFT_365_ET_ENTRA_DGF.md
+06_PROCHAINE_MISSION_LOT_1.md
+07_INSTRUCTIONS_NOUVEL_AGENT.md
+La passation distingue les observations vérifiées des résultats du Lot 0 rapportés et des validations Graph déclarées. Elle signale notamment que seul /health est enregistré par l’API ; le contrôleur MeetingsController n’est pas routé et son [Authorize] ne prouve pas une API sécurisée opérationnelle. La CI distante n’est pas confirmée.
+
+Le worktree contient des changements suivis et non suivis dont l’attribution complète est impossible à établir. Rien n’a été nettoyé, restauré ou commité. Seuls les documents de docs/continuite/ ont été ajoutés pour cette mission ; aucun code, configuration ou document existant n’a été modifié. Le Lot 1 n’a pas commencé.
+
+Avant la réinstallation : sauvegarder le worktree complet, y compris les fichiers non suivis et les modifications locales. Restaurer les valeurs d’environnement uniquement depuis un stockage sécurisé, puis reconfigurer les outils, dépendances et paramètres Entra dans le nouvel environnement.
+
+
